@@ -3,7 +3,8 @@ import xml.etree.cElementTree as et
 
 def getCovid(_date=''):
     URL = 'http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?'
-    KEY = 'serviceKey=xoKtSVwxXEsusOjSE9aQ3TMrUhJy%2Fpo%2BtpIFlsDiuJanSUhYHFhILYD%2Fd%2FSzxNyelVbGE1OhFWcfqTHIN2f4fQ%3D%3D'
+    # 키 필요
+    KEY = ''
     PAGE = '&pageNo=1'
     ROW = '&numOfRows=10'
     START = f'&startCreateDt={_date}'
