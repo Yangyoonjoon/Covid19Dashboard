@@ -48,7 +48,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="gb">
      <property name="title">
       <string>COVID-19 차트</string>
      </property>

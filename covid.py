@@ -3,8 +3,7 @@ import xml.etree.cElementTree as et
 
 def getCovid(_date=''):
     URL = 'http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?'
-    # 키 필요
-    KEY = ''
+    KEY = 'serviceKey=xoKtSVwxXEsusOjSE9aQ3TMrUhJy%2Fpo%2BtpIFlsDiuJanSUhYHFhILYD%2Fd%2FSzxNyelVbGE1OhFWcfqTHIN2f4fQ%3D%3D'
     PAGE = '&pageNo=1'
     ROW = '&numOfRows=10'
     START = f'&startCreateDt={_date}'
@@ -12,14 +11,18 @@ def getCovid(_date=''):
 
     MSG = URL + KEY + PAGE + ROW + START + END
 
-    response = requests.get(MSG)
+    try:
+        response = requests.get(MSG)
+    except Exception as e:
+        print(e)
+        return []
+    else:
+        # byte -> str : decode
+        # str -> byte : encode
 
-    # byte -> str : decode
-    # str -> byte : encode
+        _data = response.content
 
-    _data = response.content
-
-    return xmlParcer(_data.decode('utf-8'), 'item')
+        return xmlParcer(_data.decode('utf-8'), 'item')
 
 
 def xmlParcer(xmlstr, _tag=''):
@@ -34,7 +37,10 @@ def xmlParcer(xmlstr, _tag=''):
                     idx = subtag.text.find(' ')
                     temp.append(subtag.text[:idx])
                 else:
-                    temp.append(subtag.text)
+                    if subtag.text == '-':
+                        temp.append(0)
+                    else:
+                        temp.append(subtag.text)
         lst.append(temp)
 
     #print(lst)
